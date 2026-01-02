@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { hasPermission } from "../../utils/permission";
 
 const Sidebar = () => {
   const { user } = useAuth();
+
+  const navClass = ({ isActive }) =>
+    "nav-link " + (isActive ? "active" : "");
 
   return (
     <>
@@ -11,7 +14,7 @@ const Sidebar = () => {
 
         {/* Brand */}
         <div className="brand">
-          <Link to="/admin/dashboard" className="logo">
+          <NavLink to="/admin/dashboard" className="logo">
             <span>
               <img
                 src="/admin-assets/assets/images/logo-sm.png"
@@ -26,7 +29,7 @@ const Sidebar = () => {
                 className="logo-lg logo-dark"
               />
             </span>
-          </Link>
+          </NavLink>
         </div>
 
         {/* Menu */}
@@ -34,40 +37,39 @@ const Sidebar = () => {
           <div className="startbar-inner" data-simplebar>
             <ul className="navbar-nav mb-auto w-100">
 
-              {/* Main Menu */}
               <li className="menu-label pt-0 mt-0">
                 <span>Main Menu</span>
               </li>
 
               {/* Dashboard */}
               <li className="nav-item">
-                <Link to="/admin/dashboard" className="nav-link">
+                <NavLink to="/admin/dashboard" className={navClass}>
                   <i className="iconoir-home-simple menu-icon"></i>
                   <span>Dashboard</span>
-                </Link>
+                </NavLink>
               </li>
 
               {/* Courses */}
               {hasPermission(user, "manage_courses") && (
                 <li className="nav-item">
-                  <Link to="/admin/courses" className="nav-link">
+                  <NavLink to="/admin/courses" className={navClass}>
                     <i className="iconoir-book menu-icon"></i>
                     <span>Courses</span>
-                  </Link>
+                  </NavLink>
                 </li>
               )}
 
               {/* Users */}
               {hasPermission(user, "manage_roles") && (
                 <li className="nav-item">
-                  <Link to="/admin/users" className="nav-link">
+                  <NavLink to="/admin/users" className={navClass}>
                     <i className="iconoir-user menu-icon"></i>
                     <span>Users</span>
-                  </Link>
+                  </NavLink>
                 </li>
               )}
 
-              {/* SETTINGS (ROLE & PERMISSION) */}
+              {/* Settings */}
               {hasPermission(user, "manage_roles") && (
                 <>
                   <li className="menu-label mt-2">
@@ -75,17 +77,17 @@ const Sidebar = () => {
                   </li>
 
                   <li className="nav-item">
-                    <Link to="/admin/settings/roles" className="nav-link">
+                    <NavLink to="/admin/settings/roles" className={navClass}>
                       <i className="iconoir-shield menu-icon"></i>
                       <span>Roles</span>
-                    </Link>
+                    </NavLink>
                   </li>
 
                   <li className="nav-item">
-                    <Link to="/admin/settings/permissions" className="nav-link">
+                    <NavLink to="/admin/settings/permissions" className={navClass}>
                       <i className="iconoir-lock menu-icon"></i>
                       <span>Permissions</span>
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
@@ -95,7 +97,6 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Overlay */}
       <div className="startbar-overlay d-print-none"></div>
     </>
   );

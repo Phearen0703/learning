@@ -10,6 +10,9 @@ import Courses from "./admin/pages/Courses";
 import Users from "./admin/pages/Users";
 import Roles from "./admin/pages/settings/Roles";
 import Permissions from "./admin/pages/settings/Permissions";
+import Profile from "./admin/pages/Profile";
+import Forbidden from "./pages/Forbidden";
+
 
 import AdminRoute from "./routes/AdminRoute";
 import PermissionRoute from "./routes/PermissionRoute";
@@ -19,10 +22,10 @@ function App() {
     <AuthProvider>
       <Routes>
 
-        {/* STUDENT HOME */}
+        {/* STUDENT */}
         <Route path="/" element={<Home />} />
 
-        {/* LOGIN */}
+        {/* AUTH */}
         <Route path="/login" element={<Login />} />
 
         {/* ADMIN */}
@@ -71,7 +74,11 @@ function App() {
               </PermissionRoute>
             }
           />
+
+          {/* ✅ PROFILE */}
+          <Route path="profile" element={<Profile />} />
         </Route>
+        <Route path="/403" element={<Forbidden />} />
 
       </Routes>
     </AuthProvider>

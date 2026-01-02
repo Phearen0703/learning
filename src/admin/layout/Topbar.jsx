@@ -75,9 +75,14 @@ const toggleSidebar = () => {
                 data-bs-toggle="dropdown"
               >
                 <img
-                  src="/admin-assets/assets/images/users/avatar-1.jpg"
+                  src={
+                    user?.avatar
+                      ? `http://localhost:8000/storage/${user.avatar}`
+                      : "/admin-assets/assets/images/users/avatar-1.jpg"
+                  }
                   alt="user"
                   className="thumb-lg rounded-circle"
+                  style={{ objectFit: "cover" }}
                 />
               </a>
 
@@ -85,10 +90,16 @@ const toggleSidebar = () => {
                 <div className="dropdown-item-text px-3 py-2">
                   <strong>{user?.username}</strong>
                   <br />
-                  <small className="text-muted">Admin</small>
+                  <small className="text-muted">
+                    {user?.roles?.[0] || "User"}
+                  </small>
                 </div>
 
                 <div className="dropdown-divider"></div>
+
+                <a className="dropdown-item" href="/admin/profile">
+                  <i className="las la-user me-1"></i> Profile
+                </a>
 
                 <button
                   className="dropdown-item text-danger"
@@ -101,7 +112,6 @@ const toggleSidebar = () => {
                 </button>
               </div>
             </li>
-
           </ul>
         </nav>
       </div>
